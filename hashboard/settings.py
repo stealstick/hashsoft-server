@@ -39,6 +39,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'api',
     'accounts.apps.AccountsConfig',
+    'chargers.apps.ChargersConfig',
 )
 
 MIDDLEWARE_CLASSES = (
