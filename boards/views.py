@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*- 
-from .models import board
+from .models import Board
 from django.shortcuts import render
 from django.http import HttpResponse
 from datetime import datetime
@@ -8,7 +8,7 @@ from django.core import serializers
 import requests
 import string
 
-def noticeup(request):
+def Noticeup(request):
     board_url="http://ev.or.kr/portal/board/8/"
     for x in range(1,1500):
         board_id=str(x)
@@ -34,12 +34,12 @@ def noticeup(request):
             board_cont=str(board_cont.get_text())
             board_title=soup.find("h3")
             board_title=str(board_title.get_text())
-            hash_board = board(title=board_title, writer = board_writer, content = board_cont, date = board_date)
+            hash_board = Board(title=board_title, writer = board_writer, content = board_cont, date = board_date)
             hash_board.save()
             
     return HttpResponse("done")
 
-def notice(request):
+def Notice(request):
     
     hashboard = board.objects.all()
     hashboard = list(hashboard)

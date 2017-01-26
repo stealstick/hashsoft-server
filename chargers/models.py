@@ -3,7 +3,7 @@ from django.db import models
 # Create your models here.
 
 class Charger(models.Model):
-    statId = models.PositiveIntegerField(default=0)
+    statId = models.CharField(max_length=100)
     statNm = models.CharField(max_length=100)
     chgerId = models.PositiveIntegerField(default=0)
     chgerType = models.PositiveIntegerField(default=0)
