@@ -1,0 +1,23 @@
+<html>
+ <head>
+
+ </head>
+
+ <body>
+    {% load static %}
+    <img src="{% static 'img/defalutProfileImg.jpg' %}" alt="">
+
+    <form action="{% url 'accounts:token' %}" method="post">
+            {% csrf_token %}
+            <input type="text" name="username">
+            <input type="password" name="password">
+            <input type="submit" value="submit">
+    </form>
+    <h2>SignUp</h2>
+    <form action="{% url 'rest:user-list' %}"  method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ UserCreateForm.as_p }}
+        <input type="submit" value="submit">
+    </form>
+ </body>
+</html>

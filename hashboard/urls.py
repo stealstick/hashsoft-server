@@ -15,9 +15,24 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 
+from django.conf import settings
+from django.conf.urls.static import static
+
+from rest_framework.routers import DefaultRouter
+
+from accounts.views import UserViewSet
+
+
+
+router = DefaultRouter()
+router.register(r'users', UserViewSet)
+
 urlpatterns = [
+    url(r'^admin/', include(admin.site.urls)),
+    url(r'^api/', include(router.urls, namespace="rest")),
+
+    url(r'^accounts/', include('accounts.urls', namespace="accounts")),
     url(r'^board/', include('boards.urls')),
     url(r'^charger/', include('chargers.urls')),
     url(r'^account/', include('accounts.urls')),
-    url(r'^admin/', include(admin.site.urls)),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
