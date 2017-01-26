@@ -41,7 +41,7 @@ INSTALLED_APPS = (
     'rest_framework',
     'rest_framework.authtoken',
 
-    'api',
+    'boards',
     'accounts.apps.AccountsConfig',
     'chargers.apps.ChargersConfig',
 

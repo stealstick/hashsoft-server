@@ -8,7 +8,7 @@ from django.core import serializers
 import requests
 import string
 
-def index(request):
+def noticeup(request):
     board_url="http://ev.or.kr/portal/board/8/"
     for x in range(1,1500):
         board_id=str(x)
@@ -39,7 +39,7 @@ def index(request):
             
     return HttpResponse("done")
 
-def all(request):
+def notice(request):
     
     hashboard = board.objects.all()
     hashboard = list(hashboard)
