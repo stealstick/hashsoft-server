@@ -8,6 +8,9 @@ from django.core import serializers
 import requests
 import string
 
+from .models import Board
+
+
 def Noticeup(request):
     board_url="http://ev.or.kr/portal/board/8/"
     for x in range(1,1500):
@@ -19,7 +22,7 @@ def Noticeup(request):
         else:
             #print (r.text)
             soup = BeautifulSoup(r.text)
-            
+
             for data in soup.find_all('em'):
                 data_str=str(data.get_text())
                 if data_str.count('-'):
@@ -29,19 +32,19 @@ def Noticeup(request):
                     board_count = data_str
                 else:
                     board_writer = data_str
-                    
+
             board_cont=soup.find("div", {"class" : "view_cont"})
             board_cont=str(board_cont.get_text())
             board_title=soup.find("h3")
             board_title=str(board_title.get_text())
             hash_board = Board(title=board_title, writer = board_writer, content = board_cont, date = board_date)
             hash_board.save()
-            
+
     return HttpResponse("done")
 
 def Notice(request):
     
-    hashboard = board.objects.all()
+    hashboard = Board.objects.all()
     hashboard = list(hashboard)
-    data = serializers.serialize("json", board.objects.all())
+    data = serializers.serialize("json", Board.objects.all())
     return HttpResponse(data, content_type='json')

@@ -3,7 +3,7 @@ from django.test import TestCase
 from .models import Charger
 # Create your tests here.
 
-class UserTestCase(TestCase):
+class ChargersTestCase(TestCase):
     def setUp(self):
         self.charger1 = Charger.objects.create(
             statId=11110003, statNm="종묘 공영주차장", chgerId=1, chgerType=3,
