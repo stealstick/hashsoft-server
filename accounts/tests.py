@@ -18,8 +18,6 @@ class UserTestCase(TestCase):
         self.guest2.usercartype_set.create(car="중형차")
 
     def test_user_cartype_model_check(self):
-        """Animals that can speak are correctly identified"""
-
         self.guest1_car = UserCarType.objects.filter(user=self.guest1)[0]
 
         self.assertEqual(self.guest1_car.user.username, 'guest1')

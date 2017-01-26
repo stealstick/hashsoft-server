@@ -44,6 +44,8 @@ INSTALLED_APPS = (
     'boards',
     'accounts.apps.AccountsConfig',
     'chargers.apps.ChargersConfig',
+    'reviews.apps.ReviewsConfig',
+
 
 )
 
