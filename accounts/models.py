@@ -39,8 +39,7 @@ def auto_delete_file_on_delete(sender, instance, **kwargs):
 
 @receiver(models.signals.pre_save, sender=User)
 def auto_delete_file_on_change(sender, instance, **kwargs):
-    """
-    Deletes file from filesystem
+    """Deletes file from filesystem
     when corresponding `User` object is changed.
     """
     try:
@@ -60,3 +59,4 @@ def auto_delete_file_on_change(sender, instance, **kwargs):
     new_file = instance.profile
     if not old_file == new_file:
         if os.path.isfile(old_file.path):
+            os.remove(old_file.path)
