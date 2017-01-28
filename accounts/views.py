@@ -45,7 +45,6 @@ class UserViewSet(viewsets.ModelViewSet):
         return Response({"Fail":"user create fail"})
 
 
-
 def test(request):
     context = {
         'UserCreateForm' : UserCreateForm

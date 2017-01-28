@@ -19,7 +19,7 @@ class User(AbstractUser):
     sex = models.CharField(max_length=10, help_text="성")
     place = models.CharField(max_length=100, help_text="거주지")
     fav = models.ManyToManyField(Charger)
-    profile = models.ImageField(upload_to=get_upload_path, default="static/img/defalutProfileImg.jpg")
+    profile = models.ImageField(upload_to=get_upload_path, default="defalutProfileImg.jpg")
 
 
 class UserCarType(models.Model):
