@@ -24,14 +24,17 @@ class ObtainAuthToken(rest_view.ObtainAuthToken):
         }
         return Response(context)
 
+
 class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
     queryset = User.objects.all()
+
 
     def list(self, request):
         queryset = User.objects.all()
         serializer = UserSerializer(queryset, many=True)
         return Response(serializer.data)
+
 
     def create(self, request):
         forms = UserCreateForm(request.POST, request.FILES)
