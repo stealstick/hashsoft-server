@@ -23,5 +23,11 @@ class ReviewTestCase(TestCase):
 
     def test_user_reviews_check(self):
         guest1_review1 = self.guest1.charger_review.all()[0]
+        charger1_review1 = self.charger1.review.all()[0]
         self.assertEqual(guest1_review1.title, "좋아요!")
         self.assertEqual(guest1_review1.text, "충전도 빠르고 서비스도 주셔서 너무 좋았어요~")
+
+        self.assertEqual(charger1_review1.user.username, "guest1")
+        self.assertEqual(charger1_review1.text, "충전도 빠르고 서비스도 주셔서 너무 좋았어요~")
+
+
