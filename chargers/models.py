@@ -3,7 +3,7 @@ from django.db import models
 # Create your models here.
 
 class Charger(models.Model):
-    statId = models.CharField(max_length=100, help_text="충전소 아이디")
+    statId = models.CharField(max_length=100, help_text="충전소 아이디", unique=True)
     statNm = models.CharField(max_length=100, help_text="충전소 이름")
     chgerId = models.PositiveIntegerField(default=0, help_text="충전기 아이디")
     chgerType = models.PositiveIntegerField(default=0, help_text="충전기 타입")
