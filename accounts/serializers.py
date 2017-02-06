@@ -35,6 +35,7 @@ class PasswordSerializer(serializers.Serializer):
         instance.save()
         return instance
 
+
 class UserUpdateSerializer(serializers.ModelSerializer):
 
     class Meta:

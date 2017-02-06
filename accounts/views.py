@@ -43,7 +43,6 @@ class UserViewSet(viewsets.ModelViewSet):
         serializer = PasswordSerializer(self.request.user,data=request.data)
         if serializer.is_valid():
             serializer.save()
-            print(self.request.user.password)
             return Response({'status': 'password set'})
         else:
             return Response(serializer.errors,
