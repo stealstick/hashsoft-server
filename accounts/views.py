@@ -7,7 +7,6 @@ from rest_framework import viewsets
 
 from .models import User
 from .serializers import UserSerializer
-from .forms import UserCreateForm
 
 class ObtainAuthToken(rest_view.ObtainAuthToken):
 
@@ -29,24 +28,15 @@ class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
     queryset = User.objects.all()
 
-
-    def list(self, request):
-        queryset = User.objects.all()
-        serializer = UserSerializer(queryset, many=True)
-        return Response(serializer.data)
-
-
     def create(self, request):
-        forms = UserCreateForm(request.POST, request.FILES)
-        if forms.is_valid():
-            user = forms.save()
-            serializer = UserSerializer(user, many=False)
-            return Response(serializer.data)
-        return Response({"Fail":"user create fail"})
+        serializer = UserSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user = serializer.save(**serializer.validated_data)
+        user.set_password(user.password)
+        user.save()
+        token, created = Token.objects.get_or_create(user=user)
+        return Response({'token': token.key})
 
 
 def test(request):
-    context = {
-        'UserCreateForm' : UserCreateForm
-    }
-    return render(request, 'accounts/test.html', context)
+    return render(request, 'accounts/test.html')
