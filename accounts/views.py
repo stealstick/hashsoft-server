@@ -5,17 +5,19 @@ from rest_framework.response import Response
 from rest_framework import viewsets
 from rest_framework.decorators import detail_route, list_route
 from rest_framework import status
+from rest_framework.parsers import FormParser, MultiPartParser
 
-from .models import User
-from .serializers import UserSerializer, PasswordSerializer
+from .models import User, UserCarType
+from .serializers import UserSerializer, PasswordSerializer, UserCarTypeSerializer
 
 
 class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
     queryset = User.objects.all()
+    parser_classes = (MultiPartParser, FormParser,)
 
     def update(self, request, pk=None):
-        # TODO Testing 후 request.user로 고치기
+        # TODO UserSerializer에서 update로 바꾸기
         user = User.objects.get(pk=pk)
         user.username = request.data.get('username', user.username)
         user.sex = request.data.get('sex', user.sex)
@@ -29,9 +31,7 @@ class UserViewSet(viewsets.ModelViewSet):
     def create(self, request):
         serializer = UserSerializer(data=request.data)
         if serializer.is_valid():
-            user = serializer.save(**serializer.validated_data)
-            user.set_password(user.password)
-            user.save()
+            user = serializer.save()
             token, created = Token.objects.get_or_create(user=user)
             return Response({'token': token.key})
         else:
@@ -49,6 +49,13 @@ class UserViewSet(viewsets.ModelViewSet):
         else:
             return Response(serializer.errors,
                             status=status.HTTP_400_BAD_REQUEST)
+
+class UserCarTypeViewSet(viewsets.ModelViewSet):
+    serializer_class = UserCarTypeSerializer
+    queryset = UserCarType.objects.all()
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
 
 
 def test(request):

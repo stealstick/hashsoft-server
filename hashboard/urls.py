@@ -20,12 +20,13 @@ from django.conf.urls.static import static
 from rest_framework.routers import DefaultRouter
 from rest_framework.authtoken import views as token_views
 
-from accounts.views import UserViewSet
+from accounts.views import UserViewSet, UserCarTypeViewSet
 
 
 
 router = DefaultRouter()
 router.register(r'users', UserViewSet)
+router.register(r'usercartypes', UserCarTypeViewSet, base_name="usercartype")
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
