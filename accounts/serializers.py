@@ -8,3 +8,6 @@ class UserSerializer(serializers.ModelSerializer):
         extra_kwargs = {'password': {'write_only': True},
                         'profile' : {'required':False}
                         }
+
+class PasswordSerializer(serializers.Serializer):
+    password = serializers.CharField(max_length=30)
