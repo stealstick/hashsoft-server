@@ -38,17 +38,17 @@ class UserViewSet(viewsets.ModelViewSet):
             return Response(serializer.errors,
                             status=status.HTTP_400_BAD_REQUEST)
 
-    @detail_route(methods=['PUT'])
+    @detail_route(methods=['PUT', 'POST'])
     def set_password(self, request, pk=None):
-        user = self.get_object()
-        serializer = PasswordSerializer(data=request.data)
+        serializer = PasswordSerializer(self.request.user,data=request.data)
         if serializer.is_valid():
-            user.set_password(serializer.data['password'])
-            user.save()
+            serializer.save()
+            print(self.request.user.password)
             return Response({'status': 'password set'})
         else:
             return Response(serializer.errors,
                             status=status.HTTP_400_BAD_REQUEST)
+
 
 class UserCarTypeViewSet(viewsets.ModelViewSet):
     serializer_class = UserCarTypeSerializer
