@@ -9,12 +9,14 @@ from rest_framework.parsers import FormParser, MultiPartParser
 
 from .models import User, UserCarType
 from .serializers import UserSerializer, PasswordSerializer, UserCarTypeSerializer, UserUpdateSerializer
-
+from .permissions import IsOwnerOrReadOnly
 
 class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
     queryset = User.objects.all()
     parser_classes = (MultiPartParser, FormParser,)
+    permission_classes = (IsOwnerOrReadOnly,)
+
 
     def update(self, request, pk=None):
         serializer = UserUpdateSerializer(self.request.user,data=request.data)
@@ -36,7 +38,7 @@ class UserViewSet(viewsets.ModelViewSet):
                             status=status.HTTP_400_BAD_REQUEST)
 
 
-    @detail_route(methods=['PUT', 'POST'])
+    @detail_route(methods=['PUT'])
     def set_password(self, request, pk=None):
         serializer = PasswordSerializer(self.request.user,data=request.data)
         if serializer.is_valid():
