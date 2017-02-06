@@ -8,7 +8,7 @@ from rest_framework import status
 from rest_framework.parsers import FormParser, MultiPartParser
 
 from .models import User, UserCarType
-from .serializers import UserSerializer, PasswordSerializer, UserCarTypeSerializer
+from .serializers import UserSerializer, PasswordSerializer, UserCarTypeSerializer, UserUpdateSerializer
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -17,16 +17,13 @@ class UserViewSet(viewsets.ModelViewSet):
     parser_classes = (MultiPartParser, FormParser,)
 
     def update(self, request, pk=None):
-        # TODO UserSerializer에서 update로 바꾸기
-        user = User.objects.get(pk=pk)
-        user.username = request.data.get('username', user.username)
-        user.sex = request.data.get('sex', user.sex)
-        user.place = request.data.get('place', user.place)
-        user.year = request.data.get('year', user.year)
-        user.profile = request.FILES.get('profile', user.profile)
-        user.save()
-        return Response(user)
-
+        serializer = UserUpdateSerializer(self.request.user,data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        else:
+            return Response(serializer.errors,
+                            status=status.HTTP_400_BAD_REQUEST)
 
     def create(self, request):
         serializer = UserSerializer(data=request.data)
@@ -37,6 +34,7 @@ class UserViewSet(viewsets.ModelViewSet):
         else:
             return Response(serializer.errors,
                             status=status.HTTP_400_BAD_REQUEST)
+
 
     @detail_route(methods=['PUT', 'POST'])
     def set_password(self, request, pk=None):
