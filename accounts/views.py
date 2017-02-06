@@ -14,6 +14,18 @@ class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
     queryset = User.objects.all()
 
+    def update(self, request, pk=None):
+        # TODO Testing 후 request.user로 고치기
+        user = User.objects.get(pk=pk)
+        user.username = request.data.get('username', user.username)
+        user.sex = request.data.get('sex', user.sex)
+        user.place = request.data.get('place', user.place)
+        user.year = request.data.get('year', user.year)
+        user.profile = request.FILES.get('profile', user.profile)
+        user.save()
+        return Response(user)
+
+
     def create(self, request):
         serializer = UserSerializer(data=request.data)
         if serializer.is_valid():
