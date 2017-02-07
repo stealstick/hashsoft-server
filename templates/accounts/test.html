@@ -4,20 +4,17 @@
  </head>
 
  <body>
-    {% load static %}
-    <img src="{% static 'img/defalutProfileImg.jpg' %}" alt="">
-
-    <form action="{% url 'accounts:token' %}" method="post">
-            {% csrf_token %}
-            <input type="text" name="username">
-            <input type="password" name="password">
-            <input type="submit" value="submit">
-    </form>
-    <h2>SignUp</h2>
-    <form action="{% url 'rest:user-list' %}"  method="POST" enctype="multipart/form-data">
+    <h2>Set password</h2>
+    <form action="{% url 'rest:user-set-password' request.user.pk %}"  method="POST" enctype="multipart/form-data">
         {% csrf_token %}
-        {{ UserCreateForm.as_p }}
+        username : <input type="text" name="username"> <br>
+        password : <input type="text" name="password"> <br>
+        email : <input type="text" name="email"> <br>
+        year : <input type="text" name="year"> <br>
+        sex : <input type="text" name="sex"> <br>
+        place : <input type="text" name="place"> <br>
         <input type="submit" value="submit">
     </form>
+
  </body>
 </html>

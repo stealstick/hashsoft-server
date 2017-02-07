@@ -14,13 +14,13 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
-
 from django.conf import settings
 from django.conf.urls.static import static
 
 from rest_framework.routers import DefaultRouter
+from rest_framework.authtoken import views as token_views
 
-from accounts.views import UserViewSet
+from accounts.views import UserViewSet, UserCarTypeViewSet
 
 from chargers.views import ChargerViewSet
 
@@ -29,13 +29,17 @@ from chargers.views import ChargerViewSet
 router = DefaultRouter()
 router.register(r'users', UserViewSet)
 router.register(r'chargers', ChargerViewSet)
+router.register(r'usercartypes', UserCarTypeViewSet, base_name="usercartype")
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
+
     url(r'^api/', include(router.urls, namespace="rest")),
+    url(r'^auth/login/', token_views.obtain_auth_token),
 
     url(r'^accounts/', include('accounts.urls', namespace="accounts")),
     url(r'^board/', include('boards.urls')),
     url(r'^charger/', include('chargers.urls')),
     url(r'^account/', include('accounts.urls')),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
