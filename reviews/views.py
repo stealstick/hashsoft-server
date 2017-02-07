@@ -1,3 +1,7 @@
-from django.shortcuts import render
+from rest_framework import viewsets
+from .models import ChargerReview
+from .serializers import ChargerReviewSerializer
 
-# Create your views here.
+class ChargerReviewViewSet(viewsets.ModelViewSet):
+        serializer_class = ChargerReviewSerializer
+        queryset = ChargerReview.objects.all()
