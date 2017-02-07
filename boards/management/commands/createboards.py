@@ -37,4 +37,8 @@ class Command(BaseCommand):
                 try:
                     hash_board = Board.objects.create(title=board_title, writer=board_writer, content=board_cont, date=board_date)
                 except:
-                    return
+                    hash_board = Board.objects.get(title=board_title)
+                    hash_board.writer = board_writer
+                    hash_board.content = board_cont
+                    hash_board.date = board_date
+                    hash_board.save()
