@@ -39,7 +39,6 @@ urlpatterns = [
 
     url(r'^accounts/', include('accounts.urls', namespace="accounts")),
     url(r'^board/', include('boards.urls')),
-    url(r'^charger/', include('chargers.urls')),
     url(r'^account/', include('accounts.urls')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
