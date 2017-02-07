@@ -23,6 +23,7 @@ from rest_framework.authtoken import views as token_views
 from accounts.views import UserViewSet, UserCarTypeViewSet
 from chargers.views import ChargerViewSet
 from boards.views import BoardViewSet
+from reviews.views import ChargerReviewViewSet
 
 
 
@@ -31,6 +32,8 @@ router.register(r'users', UserViewSet)
 router.register(r'chargers', ChargerViewSet)
 router.register(r'usercartypes', UserCarTypeViewSet, base_name="usercartype")
 router.register(r'boards', BoardViewSet, base_name="board")
+router.register(r'charger_reviews', ChargerReviewViewSet, base_name="charger_review")
+
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
