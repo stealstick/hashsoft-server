@@ -9,7 +9,6 @@ import requests
 import string
 import json
 
-
 class Command(BaseCommand):
 
     def handle(self, *args, **options):

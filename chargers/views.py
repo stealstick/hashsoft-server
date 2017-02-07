@@ -12,6 +12,7 @@ class ChargerViewSet(viewsets.ModelViewSet):
     queryset = Charger.objects.all()
     lookup_field = 'statId'
 
+
     @detail_route(methods=['GET'])
     def reviews(self, request, statId=None):
         try:
