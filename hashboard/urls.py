@@ -42,6 +42,5 @@ urlpatterns = [
     url(r'^auth/login/', token_views.obtain_auth_token),
 
     url(r'^accounts/', include('accounts.urls', namespace="accounts")),
-    url(r'^reviews/', include('reviews.urls', namespace="reviews"))
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

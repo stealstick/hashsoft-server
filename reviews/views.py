@@ -10,15 +10,3 @@ from rest_framework import status
 class ChargerReviewViewSet(viewsets.ModelViewSet):
         serializer_class = ChargerReviewSerializer
         queryset = ChargerReview.objects.all()
-
-
-@api_view(['GET'])
-def statId_review(request, statId):
-    try:
-        charger = Charger.objects.get(statId=statId)
-    except:
-        return Response({"status":"fail"},
-                        status=status.HTTP_400_BAD_REQUEST)
-    chargerReview = ChargerReview.objects.filter(charger=charger)
-    return Response(chargerReview)
-
