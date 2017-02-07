@@ -22,10 +22,13 @@ from rest_framework.routers import DefaultRouter
 
 from accounts.views import UserViewSet
 
+from chargers.views import ChargerViewSet
+
 
 
 router = DefaultRouter()
 router.register(r'users', UserViewSet)
+router.register(r'chargers', ChargerViewSet)
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),

@@ -1,4 +1,11 @@
 # -*- coding: utf-8 -*- 
+from rest_framework.authtoken.models import Token
+from rest_framework.response import Response
+from rest_framework.authtoken import views as rest_view
+from rest_framework import viewsets
+
+from .serializers import ChargerSerializer
+
 from .models import Charger
 from django.shortcuts import render
 from django.http import HttpResponse
@@ -8,6 +15,7 @@ import datetime
 import requests
 import string
 import json
+
 
 def Chargerlistup(request):
     chargerURL="http://ev.or.kr/portal/monitor/chargerList"
@@ -34,3 +42,7 @@ def Chargerlistup(request):
 def Chargerlist(request):
     data = serializers.serialize("json", Charger.objects.all())
     return HttpResponse(data, content_type='json')
+
+class ChargerViewSet(viewsets.ModelViewSet):
+    serializer_class = ChargerSerializer
+    queryset = Charger.objects.all()
