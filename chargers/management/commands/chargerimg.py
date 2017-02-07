@@ -1,12 +1,7 @@
-from django.core.management.base import BaseCommand, CommandError
+from django.core.management.base import BaseCommand
 from chargers.models import Charger
-from django.shortcuts import render
-from django.http import HttpResponse
-from datetime import datetime
-from django.core import serializers
 from bs4 import BeautifulSoup
 import requests
-import string
 import urllib.request
 
 
