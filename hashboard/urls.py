@@ -21,8 +21,8 @@ from rest_framework.routers import DefaultRouter
 from rest_framework.authtoken import views as token_views
 
 from accounts.views import UserViewSet, UserCarTypeViewSet
-
 from chargers.views import ChargerViewSet
+from boards.views import BoardViewSet
 
 
 
@@ -30,6 +30,7 @@ router = DefaultRouter()
 router.register(r'users', UserViewSet)
 router.register(r'chargers', ChargerViewSet)
 router.register(r'usercartypes', UserCarTypeViewSet, base_name="usercartype")
+router.register(r'boards', BoardViewSet, base_name="board")
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
@@ -38,8 +39,5 @@ urlpatterns = [
     url(r'^auth/login/', token_views.obtain_auth_token),
 
     url(r'^accounts/', include('accounts.urls', namespace="accounts")),
-    url(r'^board/', include('boards.urls')),
-    url(r'^charger/', include('chargers.urls')),
-    url(r'^account/', include('accounts.urls')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
