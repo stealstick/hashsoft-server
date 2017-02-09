@@ -19,10 +19,16 @@ class Command(BaseCommand):
             try:
                 img_locate=str(pic[0]['src'])
                 img_url="http://ev.or.kr"+img_locate
-                urllib.request.urlretrieve(img_url, "chargerimg/"+charger.statId+"_1.png")
+                urllib.request.urlretrieve(img_url, "media/"+charger.statId+"_1.png")
+                charger_get=Charger.objects.get(statId=charger.statId)
+                charger_get.charger_img1=charger.statId+"_1.png"
+                charger_get.save()
 
                 img_locate=str(pic[1]['src'])
                 img_url="http://ev.or.kr"+img_locate
-                urllib.request.urlretrieve(img_url, "chargerimg/"+charger.statId+"_2.png")
+                urllib.request.urlretrieve(img_url, "media/"+charger.statId+"_2.png")
+                charger_get=Charger.objects.get(statId=charger.statId)
+                charger_get.charger_img2=charger.statId+"_2.png"
+                charger_get.save()
             except:
                 pass

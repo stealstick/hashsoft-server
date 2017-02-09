@@ -2,6 +2,7 @@ from django.db import models
 
 # Create your models here.
 
+
 class Charger(models.Model):
     no=10
     BG=11
@@ -34,6 +35,8 @@ class Charger(models.Model):
     useTime = models.CharField(max_length=100, help_text="사용 가능 시간")
     LastUsedTime = models.CharField(max_length=20, help_text="마지막 사용 시간")
     Charger_Com=models.PositiveIntegerField(choices=CHARGER_COM, default=no, blank=False)
+    charger_img1= models.ImageField(upload_to="cha", default="defalutChargerImg.jpg")
+    charger_img2= models.ImageField(upload_to="cha", default="defalutChargerImg.jpg")
 
     def __str__(self):
         return self.statNm
