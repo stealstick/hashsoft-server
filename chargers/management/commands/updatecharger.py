@@ -23,6 +23,10 @@ class Command(BaseCommand):
             except:
                 hash_ch=Charger.objects.get(statId=charger_data['sid'])
                 hash_ch.statNm = charger_data['snm']
+                try:
+                    hash_ch.Charger_Com=int(charger_data['chgeMange'])
+                except:
+                    hash_ch.Charger_Com=10
                 hash_ch.chgerId = charger_data['cid']
                 hash_ch.chgerType = charger_data['ctp']
                 hash_ch.stat=charger_data['cst']
