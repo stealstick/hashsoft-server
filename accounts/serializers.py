@@ -6,6 +6,7 @@ class UserCarTypeSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserCarType
         fields = ('pk','user', 'car')
+        extra_kwargs = {'user': {'required': False}}
 
 
 class UserSerializer(serializers.ModelSerializer):
