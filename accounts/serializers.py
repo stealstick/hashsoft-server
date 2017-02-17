@@ -1,31 +1,19 @@
 from rest_framework import serializers
-from .models import User, UserCarType
+from .models import User
 
-class UserCarTypeSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = UserCarType
-        fields = ('pk','user', 'car')
-        extra_kwargs = {
-                        'user': {'required': False}
-                        }
 
 class UserSerializer(serializers.ModelSerializer):
-    usercartype_set = UserCarTypeSerializer(many=True)
 
     class Meta:
         model = User
-        fields = ('pk', 'username', 'email', 'year', 'sex', 'place', 'profile', 'password', 'usercartype_set')
+        fields = ('pk', 'username', 'email', 'year', 'sex', 'place', 'profile', 'password')
         extra_kwargs = {'password': {'write_only': True},
                         'profile' : {'required':False}
                         }
 
     def create(self, validated_data):
-        userCarTypes_data = validated_data.pop('usercartype_set')
         user = User.objects.create(**validated_data)
         user.set_password(user.password)
-        for userCarType_data in userCarTypes_data:
-            UserCarType.objects.create(user=user, **userCarType_data)
         return user
 
 
