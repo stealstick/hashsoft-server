@@ -2,17 +2,16 @@ import os
 from django.db import models
 from django.dispatch import receiver
 from django.shortcuts import render
-
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 from rest_framework import viewsets
 from rest_framework.decorators import detail_route, list_route
 from rest_framework import status
 from rest_framework.parsers import FormParser, MultiPartParser
-
 from .models import User
 from .serializers import UserSerializer, PasswordSerializer, UserUpdateSerializer
 from .permissions import IsOwnerOrReadOnly
+
 
 class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
