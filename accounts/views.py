@@ -9,7 +9,7 @@ from rest_framework.decorators import detail_route, list_route
 from rest_framework import status
 from rest_framework.parsers import FormParser, MultiPartParser
 from .models import User
-from .serializers import UserSerializer, PasswordSerializer, UserUpdateSerializer
+from .serializers import UserSerializer, PasswordSerializer, UserUpdateSerializer, AuthTokenSerializer
 from .permissions import IsOwnerOrReadOnly
 
 
@@ -39,6 +39,13 @@ class UserViewSet(viewsets.ModelViewSet):
             return Response(serializer.errors,
                             status=status.HTTP_400_BAD_REQUEST)
 
+    @list_route(methods=['POST'])
+    def login(self, request):
+        serializer = AuthTokenSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user = serializer.validated_data['user']
+        token, created = Token.objects.get_or_create(user=user)
+        return Response({'token': token.key})
 
     @detail_route(methods=['PUT'])
     def set_password(self, request, pk=None):

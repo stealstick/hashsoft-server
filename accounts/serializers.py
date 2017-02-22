@@ -53,7 +53,7 @@ class UserUpdateSerializer(serializers.ModelSerializer):
         return instance
 
 class AuthTokenSerializer(serializers.Serializer):
-    username = serializers.CharField(label=_("Email"))
+    email = serializers.CharField(label=_("Email"))
     password = serializers.CharField(label=_("Password"), style={'input_type': 'password'})
 
     def validate(self, attrs):
