@@ -41,7 +41,7 @@ class UserUpdateSerializer(serializers.ModelSerializer):
                         'sex': {'required': False},
                         'place': {'required': False},
                         'profile': {'required': False},
-                        'car_type': {'car_type':False},
+                        'car_type': {'required':False},
                         }
 
     def update(self, instance, validated_data):
