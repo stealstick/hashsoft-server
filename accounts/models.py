@@ -24,7 +24,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     date_joined =models.BooleanField(default=True)
     year = models.PositiveIntegerField(default=0, help_text="year")
     sex = models.CharField(max_length=10, help_text="성별", choices=SEX_CHOICES)
-    car_type = models.CharField(max_length=300, help_text="차 종류")
+    car_type = models.CharField(max_length=300, help_text="차 종류", default="소형차")
     place = models.CharField(max_length=100, help_text="거주지")
     profile = models.ImageField(upload_to=get_upload_path, default="defalutProfileImg.jpg")
 
