@@ -9,7 +9,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('pk', 'username', 'email', 'year', 'sex', 'place', 'profile', 'password')
+        fields = ('pk', 'username', 'email', 'year', 'sex', 'place', 'profile', 'password', 'car_type')
         extra_kwargs = {'password': {'write_only': True},
                         'profile' : {'required':False}
                         }
@@ -34,7 +34,7 @@ class UserUpdateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('pk', 'username', 'email', 'year', 'sex', 'place', 'profile')
+        fields = ('pk', 'username', 'email', 'year', 'sex', 'place', 'profile', 'car_type')
         extra_kwargs = {'username': {'required': False},
                         'email': {'required': False},
                         'year': {'required': False},
@@ -49,7 +49,8 @@ class UserUpdateSerializer(serializers.ModelSerializer):
         instance.year = validated_data.get("year", instance.year)
         instance.sex = validated_data.get("sex", instance.sex)
         instance.place = validated_data.get("place", instance.place)
-        instance.profile = validated_data.get("username", instance.profile)
+        instance.profile = validated_data.get("profile", instance.profile)
+        instance.car_type = validated_data.get("car_type", instance.car_type)
         instance.save()
         return instance
 
