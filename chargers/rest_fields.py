@@ -5,10 +5,11 @@ class chargerField(serializers.RelatedField):
     queryset = Charger.objects.all()
 
     def to_internal_value(self, data):
-        obj = Charger.objects.get(statId=data)
-        if obj is None:
+        try:
+            obj = Charger.objects.get(statId=data)
+        except Charger.DoesNotExist:
             raise serializers.ValidationError(
-                'id is a required field.'
+                'DoesNotExist statid'
             )
         return obj
 
