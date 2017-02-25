@@ -47,6 +47,14 @@ class UserViewSet(viewsets.ModelViewSet):
         token, created = Token.objects.get_or_create(user=user)
         return Response({'token': token.key})
 
+    @list_route(methods=['GET'])
+    def logout(self, request):
+        if not request.user.is_authenticated:
+            print(request.user)
+            return Response("Do not exits user")
+        request.user.auth_token.delete()
+        return Response("user token delete success")
+
     @detail_route(methods=['PUT'])
     def set_password(self, request, pk=None):
         serializer = PasswordSerializer(self.request.user,data=request.data)
