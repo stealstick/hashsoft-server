@@ -34,4 +34,6 @@ class Command(BaseCommand):
                 hash_ch.lat=charger_data['x']
                 hash_ch.lng=charger_data['y']
                 hash_ch.useTime=charger_data['utime']
+                if hash_ch.stat==3:
+                    hash_ch.LastUsedTime=str(datetime.now())
                 hash_ch.save()
