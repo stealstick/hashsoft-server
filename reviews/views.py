@@ -11,16 +11,16 @@ class ChargerReviewViewSet(viewsets.ModelViewSet):
         serializer_class = ChargerReviewSerializer
 
         def list(self, request, *args, **kwargs):
-                statId = request.query_params.get("statId")
+                statId = request.query_params.get("statId", None)
                 if statId is not None:
-                        try:
-                                charger = Charger.objects.get(statId=statId)
-                        except Charger.DoesNotExist:
-                                return Response("DoesNotExist statId")
-                        serializer = ChargerReviewSerializer(data=charger.review.all(), many=True)
+                        chargers = Charger.objects.filter(statId=statId)
+                        if not chargers :
+                            return Response({"status":"statId do not exits"},
+                                            status=status.HTTP_400_BAD_REQUEST)
+                        reviews = ChargerReview.objects.filter(charger__in=chargers)
+                        serializer = ChargerReviewSerializer(data=reviews, many=True)
                         serializer.is_valid(raise_exception=False)
                         return Response(serializer.data)
-
                 serializer = ChargerReviewSerializer(data=self.get_queryset(), many=True)
                 serializer.is_valid(raise_exception=False)
                 return Response(serializer.data)
