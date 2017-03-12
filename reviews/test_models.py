@@ -3,7 +3,6 @@ from django.test import TestCase
 from accounts.models import User
 from chargers.models import Charger
 
-# Create your tests here.
 
 class ReviewTestCase(TestCase):
     def setUp(self):

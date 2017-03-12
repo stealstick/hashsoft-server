@@ -3,6 +3,7 @@ from django.db import models
 from accounts.models import User
 from chargers.models import Charger
 
+
 class ChargerReview(models.Model):
     charger = models.ForeignKey(Charger, on_delete=models.CASCADE, related_name="review")
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="charger_review")
