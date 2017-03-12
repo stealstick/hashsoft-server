@@ -1,8 +1,10 @@
+from rest_framework import status
 from rest_framework import viewsets
-from .serializers import ChargerReviewSerializer
-from .models import ChargerReview
-from chargers.models import Charger
 from rest_framework.response import Response
+
+from chargers.models import Charger
+from .models import ChargerReview
+from .serializers import ChargerReviewSerializer
 
 
 class ChargerReviewViewSet(viewsets.ModelViewSet):
@@ -22,6 +24,16 @@ class ChargerReviewViewSet(viewsets.ModelViewSet):
                 serializer = ChargerReviewSerializer(data=self.get_queryset(), many=True)
                 serializer.is_valid(raise_exception=False)
                 return Response(serializer.data)
+
+        def create(self, request):
+                serializer = ChargerReviewSerializer(data=request.data)
+                if serializer.is_valid():
+                        chargerReview = serializer.save()
+                        serializer=ChargerReviewSerializer(chargerReview)
+                        return Response(serializer.data)
+                else:
+                        return Response(serializer.errors,
+                                        status=status.HTTP_400_BAD_REQUEST)
 
         def perform_create(self, serializer):
                 serializer.save(user=self.request.user)
