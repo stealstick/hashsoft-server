@@ -15,7 +15,9 @@ class UserCardUpdateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = UserCard
-        fields = ('balance')
+        fields = ('pk', 'serial_number', 'balance')
+        extra_kwargs = {'serial_number': {'read_only': True}
+                        }
 
     def update(self, instance, validated_data):
         instance.balance = validated_data.get("balance", instance.balance)
