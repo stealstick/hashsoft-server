@@ -1,6 +1,19 @@
+import os
+import time
 from django.db import models
 
-# Create your models here.
+
+def get_upload_path_01(instance, filename):
+    currently = time.strftime("%y%m%d%H%M%S")
+    return os.path.join(
+      "chargers" , "{}_{}.jpg".format(currently, instance.chgerId + "_01")
+    )
+
+def get_upload_path_02(instance, filename):
+    currently = time.strftime("%y%m%d%H%M%S")
+    return os.path.join(
+      "chargers" , "{}_{}.jpg".format(currently, instance.chgerId + "_02")
+    )
 
 
 class Charger(models.Model):
@@ -41,8 +54,8 @@ class Charger(models.Model):
     useTime = models.CharField(max_length=100, help_text="사용 가능 시간")
     LastUsedTime = models.CharField(max_length=20, help_text="마지막 사용 시간")
     Charger_Com=models.PositiveIntegerField(choices=CHARGER_COM, default=no, blank=False)
-    charger_img1= models.ImageField(upload_to="cha", default="defalutChargerImg.jpg")
-    charger_img2= models.ImageField(upload_to="cha", default="defalutChargerImg.jpg")
+    charger_img1= models.ImageField(upload_to=get_upload_path_01, default="defalutChargerImg.jpg")
+    charger_img2= models.ImageField(upload_to=get_upload_path_02, default="defalutChargerImg.jpg")
 
     def __str__(self):
         return self.statNm

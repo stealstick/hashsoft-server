@@ -103,6 +103,7 @@ celerybeat-schedule
 db.sqlite3
 media/profile
 media/reports
+media/chargers
 static_production/
 local_*.py
 migrations/
