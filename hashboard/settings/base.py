@@ -44,7 +44,7 @@ INSTALLED_APPS = (
     'accounts.apps.AccountsConfig',
     'chargers.apps.ChargersConfig',
     'reviews.apps.ReviewsConfig',
-
+    'reports.apps.ReportsConfig'
 )
 
 MIDDLEWARE_CLASSES = (

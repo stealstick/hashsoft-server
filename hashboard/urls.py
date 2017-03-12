@@ -12,17 +12,17 @@ Including another URLconf
     1. Add an import:  from blog import urls as blog_urls
     2. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
 """
-from django.conf.urls import include, url
-from django.contrib import admin
 from django.conf import settings
+from django.conf.urls import include, url
 from django.conf.urls.static import static
-
+from django.contrib import admin
 from rest_framework.routers import DefaultRouter
-from accounts.views import UserViewSet, UserCardViewSet
-from chargers.views import ChargerViewSet
-from boards.views import BoardViewSet
-from reviews.views import ChargerReviewViewSet
 
+from accounts.views import UserViewSet, UserCardViewSet
+from boards.views import BoardViewSet
+from chargers.views import ChargerViewSet
+from reviews.views import ChargerReviewViewSet
+from reports.views import ReportViewSet
 
 router = DefaultRouter()
 router.register(r'users', UserViewSet)
@@ -30,6 +30,8 @@ router.register(r'user-cards', UserCardViewSet, base_name="user_card")
 router.register(r'chargers', ChargerViewSet)
 router.register(r'boards', BoardViewSet, base_name="board")
 router.register(r'charger_reviews', ChargerReviewViewSet, base_name="charger_review")
+router.register(r'reports', ReportViewSet, base_name="report")
+
 
 
 urlpatterns = [
