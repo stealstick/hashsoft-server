@@ -30,9 +30,9 @@ class Charger(models.Model):
         (DA, '대구환경공단'),
         (SU, '수소충전소')
     )
-    statId = models.CharField(max_length=100, help_text="충전소 아이디", unique=True)
+    statId = models.CharField(max_length=100, help_text="충전소 아이디",)
     statNm = models.CharField(max_length=100, help_text="충전소 이름")
-    chgerId = models.PositiveIntegerField(default=0, help_text="충전기 아이디")
+    chgerId = models.CharField(max_length=100, default=0, help_text="충전기 아이디",  unique=True)
     chgerType = models.PositiveIntegerField(default=0, help_text="충전기 타입")
     stat = models.PositiveIntegerField(default=0, help_text="실시간 정보")
     addrDoro = models.CharField(max_length=100, help_text="도로명")
