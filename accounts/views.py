@@ -1,16 +1,16 @@
-import os
-from django.db import models
-from django.dispatch import receiver
 from django.shortcuts import render
-from rest_framework.authtoken.models import Token
-from rest_framework.response import Response
-from rest_framework import viewsets
-from rest_framework.decorators import detail_route, list_route
 from rest_framework import status
+from rest_framework import viewsets
+from rest_framework.authtoken.models import Token
+from rest_framework.decorators import detail_route, list_route
 from rest_framework.parsers import FormParser, MultiPartParser
-from .models import User
-from .serializers import UserSerializer, PasswordSerializer, UserUpdateSerializer, AuthTokenSerializer
-from .permissions import IsOwnerOrReadOnly
+from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
+
+from .models import User, UserCard
+from .permissions import IsOwnerOrReadOnly, IsOwnerOrAdmin
+from .serializers import UserSerializer, PasswordSerializer,\
+    UserUpdateSerializer, AuthTokenSerializer, UserCardSerializer, UserCardUpdateSerializer
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -65,36 +65,19 @@ class UserViewSet(viewsets.ModelViewSet):
             return Response(serializer.errors,
                             status=status.HTTP_400_BAD_REQUEST)
 
+class UserCardViewSet(viewsets.ModelViewSet):
+    serializer_class = UserCardSerializer
+    queryset = UserCard.objects.all()
+    permission_classes = [IsAuthenticated,IsOwnerOrAdmin]
 
-@receiver(models.signals.post_delete, sender=User)
-def auto_delete_file_on_delete(sender, instance, **kwargs):
-    if instance.profile:
-        if os.path.isfile(instance.profile.path):
-            os.remove(instance.profile.path)
-
-
-@receiver(models.signals.pre_save, sender=User)
-def auto_delete_file_on_change(sender, instance, **kwargs):
-    try:
-        old_file = User.objects.get(pk=instance.pk).profile.path
-    except User.DoesNotExist:
-        return False
-
-
-    if not instance.pk:
-        return False
-
-    try:
-        old_file = User.objects.get(pk=instance.pk).profile
-    except User.DoesNotExist:
-        return False
-
-    new_file = instance.profile
-    if not old_file == new_file:
-        if os.path.isfile(old_file.path):
-            os.remove(old_file.path)
-
-
+    def update(self, request, pk=None):
+        serializer = UserCardUpdateSerializer(UserCard.objects.get(pk=pk), data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        else:
+            return Response(serializer.errors,
+                            status=status.HTTP_400_BAD_REQUEST)
 
 def test(request):
     return render(request, 'accounts/test.html')

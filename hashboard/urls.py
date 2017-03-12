@@ -18,7 +18,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from rest_framework.routers import DefaultRouter
-from accounts.views import UserViewSet
+from accounts.views import UserViewSet, UserCardViewSet
 from chargers.views import ChargerViewSet
 from boards.views import BoardViewSet
 from reviews.views import ChargerReviewViewSet
@@ -26,6 +26,7 @@ from reviews.views import ChargerReviewViewSet
 
 router = DefaultRouter()
 router.register(r'users', UserViewSet)
+router.register(r'user-cards', UserCardViewSet, base_name="user_card")
 router.register(r'chargers', ChargerViewSet)
 router.register(r'boards', BoardViewSet, base_name="board")
 router.register(r'charger_reviews', ChargerReviewViewSet, base_name="charger_review")

@@ -10,3 +10,17 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
             return True
 
         return obj == request.user
+
+
+class IsOwnerOrAdmin(permissions.BasePermission):
+    message = 'You do not have permission to perform this action.'
+
+    def has_permission(self, request, view):
+        if request.user.is_superuser:
+            return True
+        elif view.action == "list":
+            return False
+        return True
+
+    def has_object_permission(self, request, view, obj):
+        return (request.user.user_card == obj) or request.user.is_superuser

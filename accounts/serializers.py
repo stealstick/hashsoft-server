@@ -1,15 +1,35 @@
 from rest_framework import serializers
 from django.contrib.auth import authenticate
 from django.utils.translation import ugettext_lazy as _
-from .models import User
+from .models import User, UserCard
 
 
+class UserCardSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = UserCard
+        fields = ('pk', 'serial_number', 'balance')
+
+
+class UserCardUpdateSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = UserCard
+        fields = ('pk', 'serial_number', 'balance')
+        extra_kwargs = {'serial_number': {'read_only': True}
+                        }
+
+    def update(self, instance, validated_data):
+        instance.balance = validated_data.get("balance", instance.balance)
+        instance.save()
+        return instance
 
 class UserSerializer(serializers.ModelSerializer):
+    user_card = UserCardSerializer(read_only=True)
 
     class Meta:
         model = User
-        fields = ('pk', 'username', 'email', 'year', 'sex', 'place', 'profile', 'password', 'car_type')
+        fields = ('pk', 'username', 'email', 'year', 'sex', 'place', 'profile', 'password', 'car_type', 'user_card')
         extra_kwargs = {'password': {'write_only': True},
                         'profile' : {'required':False}
                         }
@@ -54,6 +74,7 @@ class UserUpdateSerializer(serializers.ModelSerializer):
         instance.car_type = validated_data.get("car_type", instance.car_type)
         instance.save()
         return instance
+
 
 class AuthTokenSerializer(serializers.Serializer):
     email = serializers.CharField(label=_("Email"))
