@@ -18,7 +18,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from rest_framework.routers import DefaultRouter
 
-from accounts.views import UserViewSet, UserCardViewSet
+from accounts.views import UserViewSet, UserCardViewSet, WarninViewSet
 from boards.views import BoardViewSet
 from chargers.views import ChargerViewSet
 from reviews.views import ChargerReviewViewSet
@@ -31,7 +31,7 @@ router.register(r'chargers', ChargerViewSet)
 router.register(r'boards', BoardViewSet, base_name="board")
 router.register(r'charger_reviews', ChargerReviewViewSet, base_name="charger_review")
 router.register(r'reports', ReportViewSet, base_name="report")
-
+router.register(r'warnings', WarninViewSet, base_name="warning")
 
 
 urlpatterns = [
