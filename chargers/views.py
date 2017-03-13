@@ -16,7 +16,7 @@ class ChargerViewSet(viewsets.ModelViewSet):
     @detail_route(methods=['GET'])
     def reviews(self, request, statId=None):
         try:
-            charger = Charger.objects.get(statId=statId)
+            charger = Charger.objects.filter(statId=statId)[0]
         except:
             return Response({"status": "fail"},
                             status=status.HTTP_400_BAD_REQUEST)
