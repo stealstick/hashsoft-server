@@ -4,7 +4,7 @@ from accounts.models import User
 
 
 class Caveat(models.Model):
-    title = models.CharField(max_length=100)
+    title = models.CharField(max_length=100, unique=True)
     users = models.ManyToManyField(User, through='CaveatManager', related_name="caveats")
 
     def __str__(self):
