@@ -1,19 +1,18 @@
-from django.shortcuts import render
 from rest_framework import status
 from rest_framework import viewsets
 from rest_framework.authtoken.models import Token
 from rest_framework.decorators import detail_route, list_route
 from rest_framework.parsers import FormParser, MultiPartParser
-from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from rest_framework.response import Response
 
+from accounts.user_card_serializers import UserCardUpdateSerializer
+from accounts.warnin_serializers import WarningSerializer
 from .models import User, UserCard, Warnin
 from .permissions import IsOwnerOrReadOnly, IsOwnerOrAdmin
 from .serializers import (UserSerializer, PasswordSerializer,
                           UserUpdateSerializer, AuthTokenSerializer,
-                          UserCardSerializer, UserCardUpdateSerializer,
-                          WarningSerializer
-                          )
+                          UserCardSerializer)
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -21,7 +20,6 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     parser_classes = (MultiPartParser, FormParser,)
     permission_classes = (IsOwnerOrReadOnly,)
-
 
     def update(self, request, pk=None):
         serializer = UserUpdateSerializer(self.request.user,data=request.data)
@@ -103,7 +101,3 @@ class WarninViewSet(viewsets.ModelViewSet):
         warin.save()
         serializer = WarningSerializer(warin)
         return Response(serializer.data)
-
-
-def test(request):
-    return render(request, 'accounts/test.html')

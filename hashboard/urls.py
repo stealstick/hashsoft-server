@@ -37,5 +37,4 @@ router.register(r'warnings', WarninViewSet, base_name="warning")
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^api/', include(router.urls, namespace="rest")),
-    url(r'^accounts/', include('accounts.urls', namespace="accounts")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
