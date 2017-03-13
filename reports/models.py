@@ -13,7 +13,14 @@ def get_upload_path(instance, filename):
     )
 
 class Report(models.Model):
+    STATUS_CHOICE = (
+        ("0", "대기 중"),
+        ("1", "처리 중"),
+        ("2", "처리 완료"),
+        ("3", "보류")
+    )
     user = models.ForeignKey(User, related_name="reports")
     title = models.TextField()
     content = models.TextField()
+    status = models.CharField(max_length=10,choices=STATUS_CHOICE, default=0)
     piture = models.ImageField(blank=True, upload_to=get_upload_path)
