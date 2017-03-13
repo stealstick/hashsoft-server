@@ -103,7 +103,3 @@ class WarninViewSet(viewsets.ModelViewSet):
         warin.save()
         serializer = WarningSerializer(warin)
         return Response(serializer.data)
-
-
-def test(request):
-    return render(request, 'accounts/test.html')
