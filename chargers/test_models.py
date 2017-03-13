@@ -13,4 +13,3 @@ class ChargersTestCase(TestCase):
 
     def test_Charger_model(self):
         self.assertEqual(self.charger1.statNm, '종묘 공영주차장')
-
