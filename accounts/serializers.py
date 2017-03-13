@@ -2,35 +2,9 @@ from django.contrib.auth import authenticate
 from django.utils.translation import ugettext_lazy as _
 from rest_framework import serializers
 
-from .models import User, UserCard, Warnin
-
-
-class UserCardSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = UserCard
-        fields = ('pk', 'serial_number', 'balance')
-
-
-class UserCardUpdateSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = UserCard
-        fields = ('pk', 'serial_number', 'balance')
-        extra_kwargs = {'serial_number': {'read_only': True}
-                        }
-
-    def update(self, instance, validated_data):
-        instance.balance = validated_data.get("balance", instance.balance)
-        instance.save()
-        return instance
-
-
-class UserForWarningSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Warnin
-        fields = ('pk','title')
+from accounts.user_card_serializers import UserCardSerializer
+from .models import User
+from .warnin_serializers import UserForWarningSerializer
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -57,22 +31,6 @@ class UserSerializer(serializers.ModelSerializer):
         return obj.warn.all().count()
 
 
-class WarningSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Warnin
-        fields = ('pk', 'users','title')
-
-
-class PasswordSerializer(serializers.Serializer):
-    password = serializers.CharField(max_length=30)
-
-    def update(self, instance, validated_data):
-        instance.set_password(validated_data.get('password', instance.password))
-        instance.save()
-        return instance
-
-
 class UserUpdateSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -95,6 +53,15 @@ class UserUpdateSerializer(serializers.ModelSerializer):
         instance.place = validated_data.get("place", instance.place)
         instance.profile = validated_data.get("profile", instance.profile)
         instance.car_type = validated_data.get("car_type", instance.car_type)
+        instance.save()
+        return instance
+
+
+class PasswordSerializer(serializers.Serializer):
+    password = serializers.CharField(max_length=30)
+
+    def update(self, instance, validated_data):
+        instance.set_password(validated_data.get('password', instance.password))
         instance.save()
         return instance
 

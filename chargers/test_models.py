@@ -1,7 +1,7 @@
 from django.test import TestCase
 
 from .models import Charger
-# Create your tests here.
+
 
 class ChargersTestCase(TestCase):
     def setUp(self):
@@ -13,4 +13,3 @@ class ChargersTestCase(TestCase):
 
     def test_Charger_model(self):
         self.assertEqual(self.charger1.statNm, '종묘 공영주차장')
-

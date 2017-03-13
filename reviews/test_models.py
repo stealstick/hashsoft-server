@@ -28,5 +28,3 @@ class ReviewTestCase(TestCase):
 
         self.assertEqual(charger1_review1.user.username, "guest1")
         self.assertEqual(charger1_review1.text, "충전도 빠르고 서비스도 주셔서 너무 좋았어요~")
-
-
