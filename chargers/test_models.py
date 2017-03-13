@@ -1,7 +1,7 @@
 from django.test import TestCase
 
 from .models import Charger
-# Create your tests here.
+
 
 class ChargersTestCase(TestCase):
     def setUp(self):
