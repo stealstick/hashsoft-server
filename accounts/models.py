@@ -14,13 +14,14 @@ def get_upload_path(instance, filename):
     )
 
 def get_serial_number(depth=0):
-    serial_number = ''
-    for i in range(16):
+    serial_number = '10100100'
+    for i in range(8):
         serial_number += str(random.randrange(0,9))
     if UserCard.objects.filter(serial_number=serial_number).exists():
         return get_serial_number(depth=depth + 1)
     else:
         return serial_number
+
 
 class Warnin(models.Model):
     title = models.CharField(max_length=30, unique=True)
@@ -30,7 +31,8 @@ class Warnin(models.Model):
 
     class Meta:
         ordering = ('title',)
-        
+
+
 class User(AbstractBaseUser, PermissionsMixin):
     SEX_CHOICES = (
         ("남자", "남자"),
