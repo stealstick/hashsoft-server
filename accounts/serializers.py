@@ -4,7 +4,7 @@ from rest_framework import serializers
 
 from accounts.user_card_serializers import UserCardSerializer
 from .models import User
-from caveats.serializers import UserForCaveatSerializer, UserFromCaveatManagerSerializer
+from caveats.serializers import UserFromCaveatManagerSerializer
 
 
 class UserSerializer(serializers.ModelSerializer):
