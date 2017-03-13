@@ -1,13 +1,21 @@
 from rest_framework import serializers
 
-from accounts.models import UserCard
+from accounts.models import User,UserCard
+
+
+class UserForOtherSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = User
+        fields = ('email',)
 
 
 class UserCardSerializer(serializers.ModelSerializer):
+    user = UserForOtherSerializer(read_only=True)
 
     class Meta:
         model = UserCard
-        fields = ('pk', 'serial_number', 'balance')
+        fields = ('pk', 'serial_number', 'balance', 'user')
 
 
 class UserCardUpdateSerializer(serializers.ModelSerializer):
