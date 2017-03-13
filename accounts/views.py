@@ -7,8 +7,7 @@ from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
 
 from accounts.user_card_serializers import UserCardUpdateSerializer
-from accounts.warnin_serializers import WarningSerializer
-from .models import User, UserCard, Warnin
+from .models import User, UserCard
 from .permissions import IsOwnerOrReadOnly, IsOwnerOrAdmin
 from .serializers import (UserSerializer, PasswordSerializer,
                           UserUpdateSerializer, AuthTokenSerializer,
@@ -80,24 +79,3 @@ class UserCardViewSet(viewsets.ModelViewSet):
         else:
             return Response(serializer.errors,
                             status=status.HTTP_400_BAD_REQUEST)
-
-
-class WarninViewSet(viewsets.ModelViewSet):
-    serializer_class = WarningSerializer
-    queryset = Warnin.objects.all()
-
-    @list_route(methods=["POST"], permission_classes=[IsAdminUser])
-    def add_user(self, request):
-        title = request.data.get("title", None)
-        email = request.data.get("email", None)
-        try:
-            warin=Warnin.objects.get(title=title)
-            user=User.objects.get(email=email)
-        except Warnin.DoesNotExist:
-            return Response({"status":"title does not exist"})
-        except User.DoesNotExist:
-            return Response({"status": "email does not exist"})
-        warin.users.add(user)
-        warin.save()
-        serializer = WarningSerializer(warin)
-        return Response(serializer.data)

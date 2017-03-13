@@ -23,16 +23,6 @@ def get_serial_number(depth=0):
         return serial_number
 
 
-class Warnin(models.Model):
-    title = models.CharField(max_length=30, unique=True)
-
-    def __str__(self):
-        return self.title
-
-    class Meta:
-        ordering = ('title',)
-
-
 class User(AbstractBaseUser, PermissionsMixin):
     SEX_CHOICES = (
         ("남자", "남자"),
@@ -49,7 +39,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     car_type = models.CharField(max_length=300, help_text="차 종류", default="소형차")
     place = models.CharField(max_length=100, help_text="거주지")
     profile = models.ImageField(upload_to=get_upload_path, default="defalutProfileImg.jpg")
-    warn= models.ManyToManyField(Warnin, related_name="users")
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username','year','sex','car_type','place']
 

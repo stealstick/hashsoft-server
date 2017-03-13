@@ -4,18 +4,17 @@ from rest_framework import serializers
 
 from accounts.user_card_serializers import UserCardSerializer
 from .models import User
-from .warnin_serializers import UserForWarningSerializer
+from caveats.serializers import UserForCaveatSerializer, UserFromCaveatManagerSerializer
 
 
 class UserSerializer(serializers.ModelSerializer):
     user_card = UserCardSerializer(read_only=True)
-    warn = UserForWarningSerializer(many=True, read_only=True)
-    warn_count = serializers.SerializerMethodField()
+    caveatmanager_set = UserFromCaveatManagerSerializer(read_only=True, many=True)
 
     class Meta:
         model = User
         fields = ('pk', 'username', 'email', 'year', 'sex', 'place',
-                  'profile', 'password', 'car_type', 'user_card', 'warn', 'warn_count')
+                  'profile', 'password', 'car_type', 'user_card', 'caveatmanager_set')
         extra_kwargs = {'password': {'write_only': True},
                         'profile' : {'required':False},
                         'warn' : {'read_only':True}
@@ -26,9 +25,6 @@ class UserSerializer(serializers.ModelSerializer):
         user.set_password(user.password)
         user.save()
         return user
-
-    def get_warn_count(self,obj):
-        return obj.warn.all().count()
 
 
 class UserUpdateSerializer(serializers.ModelSerializer):
