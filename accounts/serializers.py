@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth import authenticate
 from django.utils.translation import ugettext_lazy as _
-from .models import User, UserCard
+from .models import User, UserCard, Warnin
 
 
 class UserCardSerializer(serializers.ModelSerializer):
@@ -10,6 +10,11 @@ class UserCardSerializer(serializers.ModelSerializer):
         model = UserCard
         fields = ('pk', 'serial_number', 'balance')
 
+class WarningSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Warnin
+        fields = '__all__'
 
 class UserCardUpdateSerializer(serializers.ModelSerializer):
 
@@ -26,10 +31,11 @@ class UserCardUpdateSerializer(serializers.ModelSerializer):
 
 class UserSerializer(serializers.ModelSerializer):
     user_card = UserCardSerializer(read_only=True)
+    user_warn = WarningSerializer(write_only=True)
 
     class Meta:
         model = User
-        fields = ('pk', 'username', 'email', 'year', 'sex', 'place', 'profile', 'password', 'car_type', 'user_card')
+        fields = ('pk', 'username', 'email', 'year', 'sex', 'place', 'profile', 'password', 'car_type', 'user_card', 'user_warn')
         extra_kwargs = {'password': {'write_only': True},
                         'profile' : {'required':False}
                         }

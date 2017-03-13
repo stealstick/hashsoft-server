@@ -22,7 +22,15 @@ def get_serial_number(depth=0):
     else:
         return serial_number
 
+class Warnin(models.Model):
+    title = models.CharField(max_length=30)
 
+    def __str__(self):              # __unicode__ on Python 2
+        return self.title
+
+    class Meta:
+        ordering = ('title',)
+        
 class User(AbstractBaseUser, PermissionsMixin):
     SEX_CHOICES = (
         ("남자", "남자"),
@@ -39,7 +47,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     car_type = models.CharField(max_length=300, help_text="차 종류", default="소형차")
     place = models.CharField(max_length=100, help_text="거주지")
     profile = models.ImageField(upload_to=get_upload_path, default="defalutProfileImg.jpg")
-
+    warn= models.ManyToManyField(Warnin)
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username','year','sex','car_type','place']
 
@@ -61,7 +69,6 @@ class UserCard(models.Model):
     user = models.OneToOneField(User,related_name="user_card", on_delete=models.CASCADE)
     serial_number = models.CharField(max_length=20, default=get_serial_number, unique=True)
     balance = models.BigIntegerField(default=0)
-
 
 @receiver(models.signals.post_delete, sender=User)
 def auto_delete_file_on_delete(sender, instance, **kwargs):
