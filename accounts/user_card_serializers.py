@@ -7,7 +7,7 @@ class UserForOtherSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('email',)
+        fields = ('pk','email')
 
 
 class UserCardSerializer(serializers.ModelSerializer):

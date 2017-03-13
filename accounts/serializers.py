@@ -49,14 +49,6 @@ class UserUpdateSerializer(serializers.ModelSerializer):
         instance.place = validated_data.get("place", instance.place)
         instance.profile = validated_data.get("profile", instance.profile)
         instance.car_type = validated_data.get("car_type", instance.car_type)
-        instance.save()
-        return instance
-
-
-class PasswordSerializer(serializers.Serializer):
-    password = serializers.CharField(max_length=30)
-
-    def update(self, instance, validated_data):
         instance.set_password(validated_data.get('password', instance.password))
         instance.save()
         return instance

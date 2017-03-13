@@ -3,15 +3,14 @@ from rest_framework import viewsets
 from rest_framework.authtoken.models import Token
 from rest_framework.decorators import detail_route, list_route
 from rest_framework.parsers import FormParser, MultiPartParser
-from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 from accounts.user_card_serializers import UserCardUpdateSerializer
 from .models import User, UserCard
 from .permissions import IsOwnerOrReadOnly, IsOwnerOrAdmin
-from .serializers import (UserSerializer, PasswordSerializer,
-                          UserUpdateSerializer, AuthTokenSerializer,
-                          UserCardSerializer)
+from .serializers import (UserSerializer, UserUpdateSerializer,
+                          AuthTokenSerializer, UserCardSerializer)
 
 
 class UserViewSet(viewsets.ModelViewSet):
