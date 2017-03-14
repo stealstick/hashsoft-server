@@ -1,5 +1,4 @@
-
-from django.core.management.base import BaseCommand, CommandError
+from django.core.management.base import BaseCommand
 
 import requests
 from bs4 import BeautifulSoup
@@ -35,7 +34,9 @@ class Command(BaseCommand):
                 board_title = soup.find("h3")
                 board_title = str(board_title.get_text())
                 try:
-                    hash_board = Board.objects.create(title=board_title, writer=board_writer, content=board_cont, date=board_date)
+                    hash_board = Board.objects.create(
+                        title=board_title, writer=board_writer,
+                        content=board_cont, date=board_date)
                 except:
                     hash_board = Board.objects.get(title=board_title)
                     hash_board.writer = board_writer
