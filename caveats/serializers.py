@@ -3,6 +3,7 @@ from rest_framework import serializers
 from accounts.models import User
 from .models import Caveat, CaveatManager
 
+
 class UserForOtherSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -14,7 +15,7 @@ class UserForCaveatSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Caveat
-        fields = ('pk','title')
+        fields = ('pk', 'title')
 
 
 class UserFromCaveatManagerSerializer(serializers.ModelSerializer):
