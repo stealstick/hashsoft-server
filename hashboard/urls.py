@@ -30,7 +30,8 @@ router.register(r'users', UserViewSet)
 router.register(r'user-cards', UserCardViewSet, base_name="user_card")
 router.register(r'chargers', ChargerViewSet)
 router.register(r'boards', BoardViewSet, base_name="board")
-router.register(r'charger_reviews', ChargerReviewViewSet, base_name="charger_review")
+router.register(r'charger_reviews', ChargerReviewViewSet,
+                base_name="charger_review")
 router.register(r'reports', ReportViewSet, base_name="report")
 router.register(r'caveats', CaveatViewSet, base_name="caveat")
 

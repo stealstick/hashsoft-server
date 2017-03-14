@@ -7,8 +7,8 @@ from chargers.models import Charger
 class ReviewTestCase(TestCase):
     def setUp(self):
         self.guest1 = User.objects.create_user(
-            username='guest1', email='guest1@gmail.com', password='hashsoft3455',
-            year=22, sex="남자", place="서울특별시"
+            username='guest1', email='guest1@gmail.com',
+            password='hashsoft3455', year=22, sex="남자", place="서울특별시"
         )
         self.charger1 = Charger.objects.create(
             statId=11110003, statNm="종묘 공영주차장", chgerId=1, chgerType=3,
@@ -16,8 +16,8 @@ class ReviewTestCase(TestCase):
             lng=128.580612182617, useTime="24시간 이용가능", LastUsedTime="nodata"
         )
         self.guest1.charger_review.create(
-            title="좋아요!", text="충전도 빠르고 서비스도 주셔서 너무 좋았어요~",
-            star=5, charger=self.charger1
+            text="충전도 빠르고 서비스도 주셔서 너무 좋았어요~",
+            star=5, charger=self.charger1, title="좋아요!"
             )
 
     def test_user_reviews_check(self):

@@ -5,10 +5,11 @@ from accounts.models import User
 
 class Caveat(models.Model):
     title = models.CharField(max_length=100, unique=True)
-    users = models.ManyToManyField(User, through='CaveatManager', related_name="caveats")
+    users = models.ManyToManyField(User, through='CaveatManager',
+                                   related_name="caveats")
 
     def __str__(self):
-        return "<%s %s>" %(self.__class__.__name__, self.title)
+        return "<%s %s>" % (self.__class__.__name__, self.title)
 
 
 class CaveatManager(models.Model):
