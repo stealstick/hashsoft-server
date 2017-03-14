@@ -5,7 +5,7 @@ from .models import ChargerReview, Charger
 
 
 class ChargerReviewSerializer(serializers.ModelSerializer):
-    charger = ReviewChargerSerializer()
+    charger = ReviewChargerSerializer(many=False)
 
     class Meta:
         model = ChargerReview

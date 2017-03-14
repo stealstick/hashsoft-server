@@ -1,5 +1,6 @@
 from rest_framework import status
 from rest_framework import viewsets
+from rest_framework.decorators import list_route
 from rest_framework.response import Response
 
 from chargers.models import Charger
@@ -39,3 +40,15 @@ class ChargerReviewViewSet(viewsets.ModelViewSet):
 
         def get_queryset(self):
                 return ChargerReview.objects.all()
+
+        @list_route(methods=['POST'])
+        def create_review(self, request):
+                statId = request.data.get("statId", None)
+                user = request.user
+                title = request.data.get("title", None)
+                star = request.data.get("star", None)
+                charger = Charger.objects.filter(statId=statId)[0]
+                chargerReview = ChargerReview.objects.create(charger=charger, title=title,
+                                                             star=star, user=user)
+                serializer = ChargerReviewSerializer(chargerReview)
+                return Response(serializer.data)
