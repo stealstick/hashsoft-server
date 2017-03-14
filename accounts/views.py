@@ -54,16 +54,6 @@ class UserViewSet(viewsets.ModelViewSet):
         request.user.auth_token.delete()
         return Response("user token delete success")
 
-    @detail_route(methods=['PUT'])
-    def set_password(self, request, pk=None):
-        serializer = PasswordSerializer(self.request.user,data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response({'status': 'password set'})
-        else:
-            return Response(serializer.errors,
-                            status=status.HTTP_400_BAD_REQUEST)
-
 
 class UserCardViewSet(viewsets.ModelViewSet):
     serializer_class = UserCardSerializer
