@@ -2,6 +2,7 @@ from rest_framework import status
 from rest_framework import viewsets
 from rest_framework.decorators import list_route
 from rest_framework.response import Response
+from rest_framework.parsers import JSONParser
 
 from chargers.models import Charger
 from .models import ChargerReview
@@ -30,7 +31,7 @@ class ChargerReviewViewSet(viewsets.ModelViewSet):
     def create(self, request):
         serializer = ChargerReviewSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save()
+            self.perform_create(serializer)
             return Response(serializer.data)
         else:
             return Response(serializer.errors,
