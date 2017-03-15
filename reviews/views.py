@@ -15,14 +15,15 @@ class ChargerReviewViewSet(viewsets.ModelViewSet):
     def list(self, request, *args, **kwargs):
         statId = request.query_params.get("statId", None)
         if statId is not None:
+            print(statId)
             charger = Charger.objects.filter(statId=statId)[0]
             if not charger:
                 return Response({"status": "statId do not exits"},
                                 status=status.HTTP_400_BAD_REQUEST)
-                reviews = ChargerReview.objects.filter(charger=charger)
-                serializer = ChargerReviewSerializer(data=reviews, many=True)
-                serializer.is_valid(raise_exception=False)
-                return Response(serializer.data)
+            reviews = ChargerReview.objects.filter(charger=charger)
+            serializer = ChargerReviewSerializer(data=reviews, many=True)
+            serializer.is_valid(raise_exception=False)
+            return Response(serializer.data)
         serializer = ChargerReviewSerializer(data=self.get_queryset(),
                                              many=True)
         serializer.is_valid(raise_exception=False)
