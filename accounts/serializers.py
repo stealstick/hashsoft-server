@@ -5,13 +5,13 @@ from rest_framework import serializers
 from accounts.user_card_serializers import UserCardSerializer
 from .models import User
 from caveats.serializers import UserFromCaveatManagerSerializer
-from chargerfavorite.serializers import ChargerFavoriteForUserSerializer
+from chargerfavorite.serializers import UserForChargerFavoriteSerializer
 
 
 class UserSerializer(serializers.ModelSerializer):
     user_card = UserCardSerializer(read_only=True)
     caveatmanager_set = UserFromCaveatManagerSerializer(read_only=True, many=True)
-    charger_favorites = ChargerFavoriteForUserSerializer(read_only=True, many=True)
+    charger_favorites = UserForChargerFavoriteSerializer(read_only=True, many=True)
 
     class Meta:
         model = User

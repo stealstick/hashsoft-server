@@ -4,15 +4,22 @@ from chargers.models import Charger
 from .models import ChargerFavorite
 
 
-class ChargerForChargerFavoirte(serializers.ModelSerializer):
+class ChargerForChargerFavoirteSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Charger
         fields = '__all__'
 
 
-class ChargerFavoriteForUserSerializer(serializers.ModelSerializer):
-    charger = ChargerForChargerFavoirte(many=False)
+class ChargerFavoirteForChargeSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Charger
+        fields = ('pk', 'statId')
+
+
+class UserForChargerFavoriteSerializer(serializers.ModelSerializer):
+    charger = ChargerForChargerFavoirteSerializer(many=False)
 
     class Meta:
         model = ChargerFavorite
@@ -20,7 +27,7 @@ class ChargerFavoriteForUserSerializer(serializers.ModelSerializer):
 
 
 class ChargerFavoriteSerializer(serializers.ModelSerializer):
-    charger = ChargerForChargerFavoirte(many=False)
+    charger = ChargerFavoirteForChargeSerializer(many=False)
 
     class Meta:
         model = ChargerFavorite
