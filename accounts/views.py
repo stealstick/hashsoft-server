@@ -54,6 +54,12 @@ class UserViewSet(viewsets.ModelViewSet):
         request.user.auth_token.delete()
         return Response("user token delete success")
 
+    @list_route(methods=['GET'])
+    def me(self, request):
+        user = request.user
+        serializer = UserSerializer(user)
+        return Response(serializer.data)
+
 
 class UserCardViewSet(viewsets.ModelViewSet):
     serializer_class = UserCardSerializer

@@ -5,19 +5,22 @@ from rest_framework import serializers
 from accounts.user_card_serializers import UserCardSerializer
 from .models import User
 from caveats.serializers import UserFromCaveatManagerSerializer
+from chargerfavorite.serializers import ChargerFavoriteForUserSerializer
 
 
 class UserSerializer(serializers.ModelSerializer):
     user_card = UserCardSerializer(read_only=True)
     caveatmanager_set = UserFromCaveatManagerSerializer(read_only=True, many=True)
+    charger_favorites = ChargerFavoriteForUserSerializer(read_only=True, many=True)
 
     class Meta:
         model = User
         fields = ('pk', 'username', 'email', 'year', 'sex', 'place',
-                  'profile', 'password', 'car_type', 'user_card', 'caveatmanager_set')
+                  'profile', 'password', 'car_type', 'user_card',
+                  'caveatmanager_set', 'charger_favorites')
         extra_kwargs = {'password': {'write_only': True},
                         'profile' : {'required':False},
-                        'warn' : {'read_only':True}
+                        'warn' : {'read_only':True},
                         }
 
     def create(self, validated_data):
