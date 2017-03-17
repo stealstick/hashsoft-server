@@ -20,10 +20,11 @@ from rest_framework.routers import DefaultRouter
 
 from accounts.views import UserViewSet, UserCardViewSet
 from boards.views import BoardViewSet
+from caveats.views import CaveatViewSet
+from chargerfavorite.views import ChargerFavoriteViewSet
 from chargers.views import ChargerViewSet
 from reports.views import ReportViewSet
 from reviews.views import ChargerReviewViewSet
-from caveats.views import CaveatViewSet
 
 router = DefaultRouter()
 router.register(r'users', UserViewSet)
@@ -34,6 +35,8 @@ router.register(r'charger_reviews', ChargerReviewViewSet,
                 base_name="charger_review")
 router.register(r'reports', ReportViewSet, base_name="report")
 router.register(r'caveats', CaveatViewSet, base_name="caveat")
+router.register(r'charger-favorites', ChargerFavoriteViewSet,
+                base_name="charger_favorite")
 
 
 urlpatterns = [
