@@ -17,7 +17,7 @@ class ChargerFavoriteViewSet(viewsets.ModelViewSet):
         post["user"] = request.user.pk
         serializer = ChargerFavoriteSerializer(data=post)
         if serializer.is_valid():
-            serializer.save(user=request.user)
+            serializer.save()
             return Response(serializer.data)
         else:
             return Response(serializer.errors,

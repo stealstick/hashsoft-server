@@ -32,9 +32,6 @@ class ChargerFavoriteSerializer(serializers.ModelSerializer):
     class Meta:
         model = ChargerFavorite
         fields = ('pk', 'user', 'charger')
-        extra_kwargs = {
-                        'user': {'required': False},
-                        }
 
     def create(self, validated_data):
         charger = validated_data.get("charger")
@@ -42,7 +39,7 @@ class ChargerFavoriteSerializer(serializers.ModelSerializer):
         chargerFavorite = ChargerFavorite.objects.create(user=user, charger=charger)
         return chargerFavorite
 
-    def validate(self, attrs, **kwargs):
+    def validate(self, attrs):
         charger = attrs.get("charger")
         statId = charger.get("statId")
         try:

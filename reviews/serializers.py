@@ -13,7 +13,7 @@ class UserForChargerReviewSerializer(serializers.ModelSerializer):
 
 class ChargerReviewSerializer(serializers.ModelSerializer):
     charger = ReviewChargerSerializer(many=False)
-    user = UserForChargerReviewSerializer(many=False)
+    user = UserForChargerReviewSerializer(many=False, read_only=True)
 
     class Meta:
         model = ChargerReview
