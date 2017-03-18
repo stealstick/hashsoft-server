@@ -30,6 +30,7 @@ class Charger(models.Model):
     JE=19
     DA=20
     SU=89
+    ETC=99
     CHARGER_COM = (
         (no, 'none'),
         (BG, '비긴스'),
@@ -42,7 +43,8 @@ class Charger(models.Model):
         (HD, '현대자동차'),
         (JE, '제주특별자치도청'),
         (DA, '대구환경공단'),
-        (SU, '수소충전소')
+        (SU, '수소충전소'),
+        (ETC,'기타')
     )
     statId = models.CharField(max_length=100, help_text="충전소 아이디",)
     statNm = models.CharField(max_length=100, help_text="충전소 이름")
