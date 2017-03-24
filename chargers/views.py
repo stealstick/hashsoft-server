@@ -33,7 +33,7 @@ class ChargerSearchViewSet(viewsets.ModelViewSet):
     def list(self, request, *args, **kwargs):
         statNm = request.query_params.get("statNm", None)
         if statNm is not None:
-            charger = Charger.objects.filter(statNm=statNm)
+            charger = Charger.objects.filter(statNm__contains=statNm)
             if not charger:
                 return Response({"status": "statNm do not exits"},
                                 status=status.HTTP_400_BAD_REQUEST)
