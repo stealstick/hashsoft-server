@@ -8,6 +8,10 @@ class ChargerSerializer(serializers.ModelSerializer):
         model = Charger
         fields = '__all__'
 
+class ChargerSimpleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Charger
+        fields = ('statId', 'stat')
 class ChargerSearchSerializer(serializers.ModelSerializer):
 
     class Meta:
