@@ -19,7 +19,7 @@ from django.contrib import admin
 from rest_framework.routers import DefaultRouter
 
 from accounts.views import UserViewSet, UserCardViewSet
-from boards.views import BoardViewSet
+from boards.views import BoardViewSet, DataroomViewSet
 from caveats.views import CaveatViewSet
 from chargerfavorite.views import ChargerFavoriteViewSet
 from chargers.views import ChargerViewSet
@@ -32,6 +32,7 @@ router.register(r'users', UserViewSet)
 router.register(r'user-cards', UserCardViewSet, base_name="user_card")
 router.register(r'chargers', ChargerViewSet)
 router.register(r'boards', BoardViewSet, base_name="board")
+router.register(r'datarooms', DataroomViewSet, base_name="dataroom")
 router.register(r'charger_reviews', ChargerReviewViewSet,
                 base_name="charger_review")
 router.register(r'charger_search', ChargerSearchViewSet,
