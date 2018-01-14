@@ -7,6 +7,10 @@ class ChargerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Charger
         fields = '__all__'
+class ChargersSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Charger
+        fields = '__all__'
 
 class ChargerSimpleSerializer(serializers.ModelSerializer):
     class Meta:

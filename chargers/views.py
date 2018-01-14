@@ -16,13 +16,29 @@ from rest_framework.parsers import JSONParser
 class ChargerViewSet(viewsets.ModelViewSet):
     serializer_class = ChargerSerializer
     queryset = Charger.objects.all()
-    lookup_field = 'statId'
+    lookup_field = 'pk'
 
 
     @detail_route(methods=['GET'])
-    def reviews(self, request, statId=None):
+    def reviews(self, request, sid=None):
         try:
-            charger = Charger.objects.filter(statId=statId)[0]
+            charger = Charger.objects.filter(sid=sid)[0]
+        except:
+            return Response({"status": "fail"},
+                            status=status.HTTP_400_BAD_REQUEST)
+        chargerReview = ChargerReview.objects.filter(charger=charger)
+        return Response(chargerReview)
+
+class Charger2ViewSet(viewsets.ModelViewSet):
+    serializer_class = ChargerSerializer
+    queryset = Charger.objects.all()
+    lookup_field = 'pk'
+
+
+    @detail_route(methods=['GET'])
+    def reviews(self, request, sid=None):
+        try:
+            charger = Charger.objects.filter(sid=sid)[0]
         except:
             return Response({"status": "fail"},
                             status=status.HTTP_400_BAD_REQUEST)
@@ -31,21 +47,21 @@ class ChargerViewSet(viewsets.ModelViewSet):
 
 class ChargerClearViewSet(viewsets.ModelViewSet):
     serializer_class = ChargerSimpleSerializer
-    queryset = Charger.objects.values('statId', 'stat')
+    queryset = Charger.objects.values('sid', 'stat')
 
 class ChargerSearchViewSet(viewsets.ModelViewSet):
     serializer_class = ChargerSearchSerializer
     def list(self, request, *args, **kwargs):
-        statNm = request.query_params.get("statNm", None)
-        if statNm is not None:
-            charger = Charger.objects.filter(statNm__contains=statNm)
+        name = request.query_params.get("name", None)
+        if  name is not None:
+            charger = Charger.objects.filter(name__contains= name)
             if not charger:
-                return Response({"status": "statNm do not exits"},
+                return Response({"status": " name do not exits"},
                                 status=status.HTTP_400_BAD_REQUEST)
             serializer = ChargerSearchSerializer(data=charger, many=True)
             serializer.is_valid(raise_exception=False)
             return Response(serializer.data)
-        serializer = ChargerReviewSerializer(data=self.get_queryset(statNm),
+        serializer = ChargerReviewSerializer(data=self.get_queryset( name),
                                              many=True)
         serializer.is_valid(raise_exception=False)
         return Response(serializer.data)
