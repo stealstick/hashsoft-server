@@ -18,6 +18,7 @@ def get_upload_path_02(instance, filename):
 
 
 class Charger(models.Model):
+    unique_id = models.CharField(max_length=100, help_text="충전소 고유 아이디", unique=True)
     sid = models.CharField(max_length=100, help_text="충전소 아이디")
     name = models.CharField(max_length=100, help_text="충전소 이름")
     cid = models.CharField(max_length=100, default=0, help_text="충전기 아이디")

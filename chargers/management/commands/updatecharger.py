@@ -28,9 +28,9 @@ class Command(BaseCommand):
                 print(charger_data['x'])
                 print(charger_data['y'])
                 print(charger_data['utime'])
-                hash_charger = Charger.objects.create(sid=charger_data['sid'], name = charger_data['snm'], cid = charger_data['cid'], ctype = charger_data['ctp'], stat=charger_data['cst'], addrDoro=charger_data['dro'], lat=charger_data['x'], lng=charger_data['y'], useTime=charger_data['utime'], LastUsedTime="09:00", bid=charger_data['chgeMange'])
+                hash_charger = Charger.objects.create(unique_id=charger_data['sid']+charger_data['cid'], sid=charger_data['sid'], name = charger_data['snm'], cid = charger_data['cid'], ctype = charger_data['ctp'], stat=charger_data['cst'], addrDoro=charger_data['dro'], lat=charger_data['x'], lng=charger_data['y'], useTime=charger_data['utime'], LastUsedTime="09:00", bid=charger_data['chgeMange'])
             except:
-                hash_ch=Charger.objects.get(sid=charger_data['sid'])
+                hash_ch=Charger.objects.get(unique_id=charger_data['sid']+charger_data['cid'])
                 hash_ch.name = charger_data['snm']
                 try:
                     hash_ch.bid=charger_data['chgeMange']
