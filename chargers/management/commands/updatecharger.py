@@ -62,10 +62,10 @@ class Command(BaseCommand):
                     charger_data['cid'] = 'WR4'
                 elif  charger_data['cid']   == "89" or charger_data['cid']   == 89: 
                     charger_data['cid'] = 'HO'
-                    else
+                else:
                     charger_data['cid'] = 'ME'
 
-                    if charger_data['cst'] is 7:
+                if charger_data['cst'] is 7:
                         charger_data['cid'] = 'ME_T'
                         charger_data['tst']
 
