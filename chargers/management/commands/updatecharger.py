@@ -65,6 +65,10 @@ class Command(BaseCommand):
         		 	charger_data['cid'] = 'HO'
         		else
         		 	charger_data['cid'] = 'ME'
+				
+				if charger_data['cst'] is 7:
+					charger_data['cid'] = 'ME_T'
+					charger_data['tst']
 
 
 
