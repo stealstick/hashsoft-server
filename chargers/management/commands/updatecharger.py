@@ -60,11 +60,13 @@ class Command(BaseCommand):
                     charger_data['chgeMange'] = 'WR4'
                 elif  charger_data['chgeMange']   == "89" or charger_data['chgeMange']   == 89: 
                     charger_data['chgeMange'] = 'HO'
-                else:
+                elif  charger_data['chgeMange']   == "" or charger_data['chgeMange']   == None: 
                     charger_data['chgeMange'] = 'ME'
+                else:
+                    charger_data['chgeMange'] = 'None'
 
                 if charger_data['cst'] is 7:
-                    charger_data['chgeMange'] = 'ME_T'
+                    charger_data['chgeMange'] = 'MT'
                     charger_data['cst'] = charger_data['tst']
 
                 print(charger_data['sid'])
