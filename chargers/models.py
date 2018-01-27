@@ -27,6 +27,8 @@ class Charger(models.Model):
     addrDoro = models.CharField(max_length=100, help_text="도로명")
     lat = models.CharField(max_length=100, default=0, help_text="위도")
     lng = models.CharField(max_length=100, default=0, help_text="경도")
+    pay = models.CharField(max_length=100, default="", blank=True, help_text="가격")
+    tel = models.CharField(max_length=100, default="", help_text="전화번호", blank=True)
     useTime = models.CharField(max_length=100, default=0, help_text="사용 가능 시간")
     LastUsedTime = models.CharField(max_length=20, help_text="마지막 사용 시간")
     bid=models.CharField(max_length=20, default="etc", blank=False)
