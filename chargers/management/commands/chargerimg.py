@@ -23,11 +23,13 @@ class Command(BaseCommand):
                 img01=urlopen(img_url)
                 charger.charger_img1.save('a.jpg', ContentFile(img01.read()))
                 charger.save()
+                print("success")
 
                 img_locate=str(pic[1]['src'])
                 img_url="http://ev.or.kr"+img_locate
                 img02=urlopen(img_url)
                 charger.charger_img2.save('a.jpg', ContentFile(img02.read()))
                 charger.save()
+                print("success2")
             except:
                 pass
