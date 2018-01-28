@@ -7,13 +7,13 @@ from django.db import models
 def get_upload_path_01(instance, filename):
     currently = time.strftime("%y%m%d%H%M%S")
     return os.path.join(
-      "chargers" , "{}_{}.jpg".format(currently, instance.chgerId + "_01")
+      "chargers" , "{}_{}.jpg".format(currently, instance.sid + "_01")
     )
 
 def get_upload_path_02(instance, filename):
     currently = time.strftime("%y%m%d%H%M%S")
     return os.path.join(
-      "chargers" , "{}_{}.jpg".format(currently, instance.chgerId + "_02")
+      "chargers" , "{}_{}.jpg".format(currently, instance.sid + "_02")
     )
 
 
