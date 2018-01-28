@@ -12,7 +12,7 @@ class Command(BaseCommand):
         # -*- coding: utf-8 -*- 
         queryset=Charger.objects.all()
         for charger in queryset:
-            chargerURL="http://ev.or.kr/portal/monitor/stationinfo?sid="+charger.statId
+            chargerURL="http://ev.or.kr/portal/monitor/stationinfo?sid="+charger.sid
             charger_crawl=requests.get(chargerURL)
             charger_html=charger_crawl.text
             soup = BeautifulSoup(charger_html, 'html.parser')
