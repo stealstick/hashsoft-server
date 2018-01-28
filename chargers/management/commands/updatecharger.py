@@ -49,7 +49,7 @@ class Command(BaseCommand):
                 elif  charger_data['chgeMange']   == "25" or charger_data['chgeMange']   == 25:
                     charger_data['chgeMange'] = 'KT'
                 elif  charger_data['chgeMange']   == "26" or charger_data['chgeMange']   == 26:
-                    charger_data['chgeMange'] = 'EV'
+                    charger_data['chgeMange'] = 'ER'
                 elif  charger_data['chgeMange']   == "27" or charger_data['chgeMange']   == 27:
                     charger_data['chgeMange'] = 'WR1'
                 elif  charger_data['chgeMange']   == "28" or charger_data['chgeMange']   == 28:
