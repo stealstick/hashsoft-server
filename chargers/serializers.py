@@ -15,7 +15,7 @@ class ChargersSerializer(serializers.ModelSerializer):
 class ChargerSimpleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Charger
-        fields = ('statId', 'stat')
+        fields = ('sid', 'stat')
 class ChargerSearchSerializer(serializers.ModelSerializer):
 
     class Meta:
