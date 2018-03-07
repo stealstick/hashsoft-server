@@ -10,7 +10,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         board_url = "http://ev.or.kr/portal/board/9/"
-        for x in range(1, 1500):
+        for x in range(210, 3500):
             board_id = str(x)
             board_req = board_url + board_id
             print(x)
@@ -19,9 +19,10 @@ class Command(BaseCommand):
             except:
                 time.sleep(3)
                 r = requests.get(board_req)
-            if r.text.count('충전인프라 정보시스템 에러 내용'):
+            if r.text.count('잘못된 주소이거나') or r.text.count('충전인프라 정보시스템 에러'):
                 pass
             else:
+                print(board_req)
                 soup = BeautifulSoup(r.text, 'html.parser')
 
                 for data in soup.find_all('em'):
@@ -39,12 +40,12 @@ class Command(BaseCommand):
                 board_title = soup.find("h3")
                 board_title = str(board_title.get_text())
                 try:
-                    board_filelink = board_cont.find('a', href=True)
+                    board_filelink = board_cont.find_all('a', href=True)
                     board_filelink=str(board_filelink['href'])
-                    board_filelink="http://ev.or.kr"+board_filelink
+                    board_filelink="http://ev.or.kr"+board_filelink[0]
                     print(x)
                 except:
-                    board_filelink="자료 없음"
+                    board_filelink="none"
 
 
                 try:

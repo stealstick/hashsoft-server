@@ -16,8 +16,7 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('pk', 'username', 'email', 'year', 'sex', 'place',
-                  'profile', 'password', 'car_type', 'user_card',
-                  'caveatmanager_set', 'charger_favorites')
+                  'profile', 'password', 'car_type', 'user_card', 'charger_favorites')
         extra_kwargs = {'password': {'write_only': True},
                         'profile' : {'required':False},
                         'warn' : {'read_only':True},

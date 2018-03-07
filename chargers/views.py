@@ -4,10 +4,11 @@ from rest_framework.decorators import detail_route
 from rest_framework.response import Response
 
 from reviews.models import ChargerReview
-from .models import Charger
+from .models import Charger, CidStat
 from .serializers import ChargerSerializer
-from .serializers import ChargerSimpleSerializer
+#from .serializers import ChargerSimpleSerializer
 from .serializers import ChargerSearchSerializer
+from .serializers import CidStatSearchSerializer
 
 from rest_framework.decorators import list_route
 from rest_framework.response import Response
@@ -44,11 +45,11 @@ class Charger2ViewSet(viewsets.ModelViewSet):
                             status=status.HTTP_400_BAD_REQUEST)
         chargerReview = ChargerReview.objects.filter(charger=charger)
         return Response(chargerReview)
-
+"""
 class ChargerClearViewSet(viewsets.ModelViewSet):
     serializer_class = ChargerSimpleSerializer
     queryset = Charger.objects.values('sid', 'stat')
-
+"""
 class ChargerSearchViewSet(viewsets.ModelViewSet):
     serializer_class = ChargerSearchSerializer
     def list(self, request, *args, **kwargs):
@@ -69,3 +70,24 @@ class ChargerSearchViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         return Charger.objects.all()
+
+class CidStatSearchViewSet(viewsets.ModelViewSet):
+    serializer_class = CidStatSearchSerializer
+    def list(self, request, *args, **kwargs):
+        sid = request.query_params.get("sid", None)
+        if  sid is not None:
+            charger = CidStat.objects.filter(charger= sid)
+            if not charger:
+                return Response({"status": " name do not exits"},
+                                status=status.HTTP_400_BAD_REQUEST)
+            serializer = CidStatSearchSerializer(data=charger, many=True)
+            serializer.is_valid(raise_exception=False)
+            return Response(serializer.data)
+        serializer = CidStatSearchSerializer(data=self.get_queryset(),
+                                             many=True)
+        serializer.is_valid(raise_exception=False)
+        return Response(serializer.data)
+       
+
+    def get_queryset(self):
+        return CidStat.objects.all()

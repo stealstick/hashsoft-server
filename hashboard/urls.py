@@ -23,7 +23,7 @@ from boards.views import BoardViewSet, DataroomViewSet
 from caveats.views import CaveatViewSet
 from chargerfavorite.views import ChargerFavoriteViewSet
 from chargers.views import ChargerViewSet
-from chargers.views import ChargerSearchViewSet, ChargerClearViewSet
+from chargers.views import ChargerSearchViewSet, CidStatSearchViewSet#, ChargerClearViewSet
 from reports.views import ReportViewSet
 from reviews.views import ChargerReviewViewSet
 
@@ -37,12 +37,12 @@ router.register(r'charger_reviews', ChargerReviewViewSet,
                 base_name="charger_review")
 router.register(r'charger_search', ChargerSearchViewSet,
                 base_name="charger_search")
-router.register(r'charger_simple', ChargerClearViewSet,
-                base_name="charger_simple")
+#router.register(r'charger_simple', ChargerClearViewSet,base_name="charger_simple")
 router.register(r'reports', ReportViewSet, base_name="report")
 router.register(r'caveats', CaveatViewSet, base_name="caveat")
-router.register(r'charger-favorites', ChargerFavoriteViewSet,
+router.register(r'charger_favorites', ChargerFavoriteViewSet,
                 base_name="charger_favorite")
+router.register(r'charger_cidstat', CidStatSearchViewSet, base_name="charger_cidstat")
 
 
 urlpatterns = [

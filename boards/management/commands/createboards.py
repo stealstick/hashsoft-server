@@ -14,7 +14,7 @@ class Command(BaseCommand):
             board_id = str(x)
             board_req = board_url + board_id
             r = requests.get(board_req)
-            if r.text.count('충전인프라 정보시스템 에러 내용'):
+            if r.text.count('자료 없음'):
                 pass
             else:
                 soup = BeautifulSoup(r.text, 'html.parser')
@@ -37,6 +37,10 @@ class Command(BaseCommand):
                     hash_board = Board.objects.create(
                         title=board_title, writer=board_writer,
                         content=board_cont, date=board_date)
+                    print('title:',board_title)
+                    print('writer:',board_writer)
+                    print('board_date:',board_date)
+
                 except:
                     hash_board = Board.objects.get(title=board_title)
                     hash_board.writer = board_writer
